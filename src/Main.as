@@ -11,18 +11,32 @@ package
 	import flash.ui.MultitouchInputMode;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.Timer;
+	import starling.core.Starling;
 	
 	/**
-	 * ...
+	 * 2013-01-14
 	 * @author XIEJ
 	 */
 	public class Main extends Sprite 
 	{
 		
 		private var _timer:Timer;
+		private var _starling:Starling;
 		
 		public function Main():void 
 		{
+			if (stage) {
+				start();
+			}else{
+				addEventListener(Event.ADDED_TO_STAGE, start);
+			}
+		}
+		
+		private function start(e:Event = null):void {
+			if (hasEventListener(Event.ADDED_TO_STAGE)) {
+				removeEventListener(Event.ADDED_TO_STAGE, init);
+			}
+			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 			stage.addEventListener(Event.DEACTIVATE, deactivate);
@@ -49,13 +63,10 @@ package
 			trace("Before Event stage.stageWidth " + stage.stageWidth + " stage.stageHeight " + stage.stageHeight);
 			stage.addEventListener(Event.RESIZE, stageResize);
 			
-			try
-			{
+			try {
 				//手机版本屏幕旋转
 				stage.setOrientation(StageOrientation.ROTATED_RIGHT);
-			}
-			catch (e:Error)
-			{
+			}catch (e:Error) {
 				//浏览器版本
 				trace("浏览器版本 无屏幕旋转事件");
 			}
@@ -72,12 +83,10 @@ package
 		
 		private function next(e:TimerEvent):void
 		{
-			if (_timer.hasEventListener(TimerEvent.TIMER))
-			{
+			if (_timer.hasEventListener(TimerEvent.TIMER)) {
 				_timer.removeEventListener(TimerEvent.TIMER, next);
 			}
-			if (_timer.running)
-			{
+			if (_timer.running) {
 				_timer.stop();
 			}
 			_timer = null;
