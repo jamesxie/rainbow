@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<project>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project version="2">
   <!-- Output SWF options -->
   <output>
-    <movie disabled="False" />
+    <movie outputType="Application" />
     <movie input="" />
     <movie path="bin\Rainbow.swf" />
     <movie fps="30" />
@@ -15,6 +15,7 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
+    <class path="lib" />
     <class path="src" />
   </classpaths>
   <!-- Build options -->
@@ -23,10 +24,13 @@
     <option allowSourcePathOverlap="False" />
     <option benchmark="False" />
     <option es="False" />
+    <option locale="" />
     <option loadConfig="" />
     <option optimize="True" />
+    <option omitTraces="True" />
     <option showActionScriptWarnings="True" />
     <option showBindingWarnings="True" />
+    <option showInvalidCSS="True" />
     <option showDeprecationWarnings="True" />
     <option showUnusedTypeSelectorWarnings="True" />
     <option strict="True" />
@@ -34,8 +38,12 @@
     <option useResourceBundleMetadata="True" />
     <option warnings="True" />
     <option verboseStackTraces="False" />
+    <option linkReport="" />
+    <option loadExterns="" />
+    <option staticLinkRSL="True" />
     <option additional="" />
-    <option customSDK="" />
+    <option compilerConstants="" />
+    <option minorVersion="" />
   </build>
   <!-- SWC Include Libraries -->
   <includeLibraries>
@@ -53,6 +61,10 @@
   <rslPaths>
     <!-- example: <element path="..." /> -->
   </rslPaths>
+  <!-- Intrinsic Libraries -->
+  <intrinsics>
+    <!-- example: <element path="..." /> -->
+  </intrinsics>
   <!-- Assets to embed into the output SWF -->
   <library>
     <!-- example: <asset path="..." id="..." update="..." glyphs="..." mode="..." place="..." sharepoint="..." /> -->
@@ -75,4 +87,6 @@
     <option testMovie="Custom" />
     <option testMovieCommand="Run.bat" />
   </options>
+  <!-- Plugin storage -->
+  <storage />
 </project>
