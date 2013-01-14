@@ -42,7 +42,9 @@ package
 		
 		private function init():void
 		{
+			
 			//stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+			
 			trace("Before Event stage.fullScreenWidth " + stage.fullScreenWidth + " stage.fullScreenHeight " + stage.fullScreenHeight);
 			trace("Before Event stage.stageWidth " + stage.stageWidth + " stage.stageHeight " + stage.stageHeight);
 			stage.addEventListener(Event.RESIZE, stageResize);
@@ -61,10 +63,10 @@ package
 			trace("Hello World");
 			var fSP:Sprite = new Sprite();
 			fSP.graphics.beginFill(0xFF0000);
-			fSP.graphics.drawRect(0, 0, 50, 10);
+			fSP.graphics.drawRect(0, 0, 10, 1);
 			fSP.graphics.endFill();
-			fSP.x = 10;
-			fSP.y = 10;
+			fSP.x = 0;
+			fSP.y = 0;
 			this.addChild(fSP);
 		}
 		
@@ -87,13 +89,12 @@ package
 		{
 			removeEventListener(Event.RESIZE, stageResize);
 			
-			trace("RESIZE EVENT");
-			trace("After resize stage.fullScreenWidth " + stage.fullScreenWidth + " stage.fullScreenHeight " + stage.fullScreenHeight);
-			trace("After resize stage.stageWidth " + stage.stageWidth + " stage.stageHeight " + stage.stageHeight);
+			trace("RESIZE EVENT --");
+			//trace("After resize stage.fullScreenWidth " + stage.fullScreenWidth + " stage.fullScreenHeight " + stage.fullScreenHeight);
+			//trace("After resize stage.stageWidth " + stage.stageWidth + " stage.stageHeight " + stage.stageHeight);
 			
 			//StageInfo.WIDTH = stage.stageWidth;
 			//StageInfo.HEIGHT = stage.stageHeight;
-		
 		}
 		
 		private function startStarling():void {
