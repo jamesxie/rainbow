@@ -12,14 +12,11 @@ package
 	import flash.ui.MultitouchInputMode;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.Timer;
-<<<<<<< HEAD
 	
 	import com.yxg.display.StageInfo;
-=======
->>>>>>> parent of ffd1d01... add test code
 	
 	/**
-	 * ...
+	 * 2013-01-14
 	 * @author XIEJ
 	 */
 	//[SWF(width="1024",height="512",frameRate="60",backgroundColor="#2f2f2f")]
@@ -30,7 +27,6 @@ package
 		
 		public function Main():void 
 		{
-<<<<<<< HEAD
 			if (stage) {
 				start();
 			}else {
@@ -43,8 +39,6 @@ package
 				removeEventListener(Event.ADDED_TO_STAGE, init);
 			}
 			
-=======
->>>>>>> parent of ffd1d01... add test code
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 			stage.addEventListener(Event.DEACTIVATE, deactivate);
@@ -71,13 +65,10 @@ package
 			trace("Before Event stage.stageWidth " + stage.stageWidth + " stage.stageHeight " + stage.stageHeight);
 			stage.addEventListener(Event.RESIZE, stageResize);
 			
-			try
-			{
+			try {
 				//手机版本屏幕旋转
 				stage.setOrientation(StageOrientation.ROTATED_RIGHT);
-			}
-			catch (e:Error)
-			{
+			}catch (e:Error) {
 				//浏览器版本
 				trace("浏览器版本 无屏幕旋转事件");
 			}
@@ -94,12 +85,10 @@ package
 		
 		private function next(e:TimerEvent):void
 		{
-			if (_timer.hasEventListener(TimerEvent.TIMER))
-			{
+			if (_timer.hasEventListener(TimerEvent.TIMER)) {
 				_timer.removeEventListener(TimerEvent.TIMER, next);
 			}
-			if (_timer.running)
-			{
+			if (_timer.running) {
 				_timer.stop();
 			}
 			_timer = null;
