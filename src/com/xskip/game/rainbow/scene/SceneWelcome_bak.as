@@ -1,5 +1,6 @@
 package com.xskip.game.rainbow.scene 
 {
+	import com.xskip.game.rainbow.algorithm.ParallaxBackground;
 	import com.xskip.game.rainbow.database.GlobalData;
 	import com.xskip.game.rainbow.display.DisplayManage;
 	import com.xskip.game.rainbow.player.HeroView;
@@ -16,7 +17,7 @@ package com.xskip.game.rainbow.scene
 	 * ...
 	 * @author XIEJ
 	 */
-	public class SceneWelcome_bak  extends Sprite  implements IScene
+	public class SceneWelcome  extends Sprite  implements IScene
 	{
 		
 		 [Embed(source="../../../../../../asset/man.png")]
@@ -29,7 +30,7 @@ package com.xskip.game.rainbow.scene
 		private var _man:HeroView;
 		
 		
-		public function SceneWelcome_bak() 
+		public function SceneWelcome() 
 		{
 			init();
 		}
@@ -84,10 +85,9 @@ package com.xskip.game.rainbow.scene
 			q1.x = GlobalData.GAME_WORLD.stage.stageWidth - q1.width >> 1; 
 			q1.y = GlobalData.GAME_WORLD.stage.stageHeight - q1.height >> 1;
 			
-			
 			var fBitmap:Bitmap = new assetHero() as Bitmap;
 			
-			_man = new HeroView(Texture.fromBitmap(fBitmap),fBitmap.bitmapData);
+			_man = new HeroView(Texture.fromBitmap(fBitmap),fBitmap);
 			//缩放
 			
 			
@@ -96,7 +96,7 @@ package com.xskip.game.rainbow.scene
 			
 			GlobalData.GAME_WORLD.stage.addChild(_man);
 			
-			//var pbg:ParallaxBackground = new ParallaxBackground(q1, q2, q3,_man);
+			var pbg:ParallaxBackground = new ParallaxBackground(q1, q2, q3,_man);
 			
 			
 			//销毁主角

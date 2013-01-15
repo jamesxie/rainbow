@@ -19,13 +19,8 @@ package com.xskip.game.rainbow
 		}
 		
 		private function init():void {
-
-			
-			
 			GlobalData.GAME_WORLD.stage.color = 0x333333;
-			
 			DisplayManage.run();
-			
 			SceneManage.play(GameInfo.STEP_WELCOME);
 		}
 		

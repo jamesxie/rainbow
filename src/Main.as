@@ -1,5 +1,6 @@
 package 
 {
+	import com.xskip.game.rainbow.StarlingMain;
 	import flash.desktop.NativeApplication;
 	import flash.display.StageOrientation;
 	import flash.events.Event;
@@ -11,23 +12,28 @@ package
 	import flash.ui.MultitouchInputMode;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.Timer;
-	import starling.core.Starling;
+<<<<<<< HEAD
+	
+	import com.yxg.display.StageInfo;
+=======
+>>>>>>> parent of ffd1d01... add test code
 	
 	/**
-	 * 2013-01-14
+	 * ...
 	 * @author XIEJ
 	 */
+	//[SWF(width="1024",height="512",frameRate="60",backgroundColor="#2f2f2f")]
 	public class Main extends Sprite 
 	{
 		
 		private var _timer:Timer;
-		private var _starling:Starling;
 		
 		public function Main():void 
 		{
+<<<<<<< HEAD
 			if (stage) {
 				start();
-			}else{
+			}else {
 				addEventListener(Event.ADDED_TO_STAGE, start);
 			}
 		}
@@ -37,9 +43,13 @@ package
 				removeEventListener(Event.ADDED_TO_STAGE, init);
 			}
 			
+=======
+>>>>>>> parent of ffd1d01... add test code
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 			stage.addEventListener(Event.DEACTIVATE, deactivate);
+			
+			StageInfo.STAGE = stage;
 			
 			// touch or gesture?
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
@@ -56,17 +66,18 @@ package
 		
 		private function init():void
 		{
-			
 			//stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
-			
 			trace("Before Event stage.fullScreenWidth " + stage.fullScreenWidth + " stage.fullScreenHeight " + stage.fullScreenHeight);
 			trace("Before Event stage.stageWidth " + stage.stageWidth + " stage.stageHeight " + stage.stageHeight);
 			stage.addEventListener(Event.RESIZE, stageResize);
 			
-			try {
+			try
+			{
 				//手机版本屏幕旋转
 				stage.setOrientation(StageOrientation.ROTATED_RIGHT);
-			}catch (e:Error) {
+			}
+			catch (e:Error)
+			{
 				//浏览器版本
 				trace("浏览器版本 无屏幕旋转事件");
 			}
@@ -83,10 +94,12 @@ package
 		
 		private function next(e:TimerEvent):void
 		{
-			if (_timer.hasEventListener(TimerEvent.TIMER)) {
+			if (_timer.hasEventListener(TimerEvent.TIMER))
+			{
 				_timer.removeEventListener(TimerEvent.TIMER, next);
 			}
-			if (_timer.running) {
+			if (_timer.running)
+			{
 				_timer.stop();
 			}
 			_timer = null;
@@ -102,12 +115,16 @@ package
 			//trace("After resize stage.fullScreenWidth " + stage.fullScreenWidth + " stage.fullScreenHeight " + stage.fullScreenHeight);
 			//trace("After resize stage.stageWidth " + stage.stageWidth + " stage.stageHeight " + stage.stageHeight);
 			
-			//StageInfo.WIDTH = stage.stageWidth;
-			//StageInfo.HEIGHT = stage.stageHeight;
+			StageInfo.WIDTH = stage.stageWidth;
+			StageInfo.HEIGHT = stage.stageHeight;
+			
+			//game.rander();
 		}
 		
 		private function startStarling():void {
 			trace("startStarling");
+			
+			var fStarlingMain:StarlingMain = new StarlingMain();
 		}
 		
 		private function deactivate(e:Event):void 
@@ -122,9 +139,7 @@ package
 				//nativeApplication.addEventListener(Event.DEACTIVATE, deactivateHandler);
 				//nativeApplication.addEventListener(Event.ACTIVATE, activateHandler);	
 				//nativeApplication.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
-			}
-			catch (e:Error)
-			{
+			}catch (e:Error) {
 				//浏览器版本
 				trace("浏览器版本 关闭事件");
 			}

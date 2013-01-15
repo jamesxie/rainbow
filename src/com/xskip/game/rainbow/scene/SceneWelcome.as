@@ -25,7 +25,7 @@ package com.xskip.game.rainbow.scene
 		
 		private var q1:Quad;
 		private var q2:Quad;
-		private var q3:Quad;
+		private var q3:Sprite;
 		
 		private var _man:HeroView;
 		
@@ -66,14 +66,34 @@ package com.xskip.game.rainbow.scene
 			q2.setVertexColor(2, 0x00FF00); 
 			q2.setVertexColor(3, 0x0000FF);
 			
-			q3 = new Quad(1024, 16);
-			q3.setVertexColor(0, 0x000000); 
-			q3.setVertexColor(1, 0xAA0000); 
-			q3.setVertexColor(2, 0x00FF00); 
-			q3.setVertexColor(3, 0x0000FF);
+			q3 = new Sprite();
+			var quadQ1:Quad=new Quad(1024, 16);
+			quadQ1.setVertexColor(0, 0x000000); 
+			quadQ1.setVertexColor(1, 0xAA0000); 
+			quadQ1.setVertexColor(2, 0x00FF00); 
+			quadQ1.setVertexColor(3, 0x0000FF);
+			quadQ1.y = 380;
 			
-			q3.y = 480;
+			var quadQ2:Quad=new Quad(300, 16);
+			quadQ2.setVertexColor(0, 0x000000); 
+			quadQ2.setVertexColor(1, 0xAA0000); 
+			quadQ2.setVertexColor(2, 0x00FF00); 
+			quadQ2.setVertexColor(3, 0x0000FF);
+			quadQ2.x = 424;
+			quadQ2.y = 280;
 			
+			var quadQ3:Quad = new Quad(16, 50);
+			quadQ3.setVertexColor(0, 0x000000);
+			quadQ3.setVertexColor(1, 0xAA0000);
+			quadQ3.setVertexColor(2, 0x00FF00);
+			quadQ3.setVertexColor(3, 0x0000FF);
+			quadQ3.x = 600;
+			//quadQ3.y = 280;
+			quadQ3.y = 320;
+			
+			q3.addChild(quadQ1);
+			//q3.addChild(quadQ2);
+			q3.addChild(quadQ3);
 			
 			GlobalData.GAME_WORLD.stage.addChild(q1);
 			GlobalData.GAME_WORLD.stage.addChild(q2);
@@ -84,8 +104,6 @@ package com.xskip.game.rainbow.scene
 			//q3居中
 			q1.x = GlobalData.GAME_WORLD.stage.stageWidth - q1.width >> 1; 
 			q1.y = GlobalData.GAME_WORLD.stage.stageHeight - q1.height >> 1;
-			
-			q1.bounds.containsPoint();
 			
 			var fBitmap:Bitmap = new assetHero() as Bitmap;
 			
@@ -98,7 +116,7 @@ package com.xskip.game.rainbow.scene
 			
 			GlobalData.GAME_WORLD.stage.addChild(_man);
 			
-			var pbg:ParallaxBackground = new ParallaxBackground(q1, q2, q3,_man);
+			var pbg:ParallaxBackground = new ParallaxBackground(q1, q2, q3, _man);
 			
 			
 			//销毁主角
