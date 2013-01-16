@@ -82,14 +82,6 @@ package com.xskip.game.rainbow.algorithm
 			GlobalData.GAME_WORLD.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDownHandler);
 			GlobalData.GAME_WORLD.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUpHandler);
 			
-			
-			/*_point = new Point(_displayHero.x, _displayFront.y);
-			var quad:Quad = new Quad(2, 2, 0xFF0000);
-			quad.x = _point.x;
-			quad.y = _point.y;
-			GlobalData.GAME_WORLD.stage.addChild(quad);*/
-			
-			
 			GlobalData.GAME_WORLD.stage.addEventListener(TouchEvent.TOUCH, onTouchedSprite); 
 			
 			//GlobalData.GAME_WORLD.stage.advanceTime
@@ -141,79 +133,40 @@ package com.xskip.game.rainbow.algorithm
 			_displayMiddle.x ++;
 			
 			var fNum:int = _displayFront.numChildren;
-			var boundsDown:Rectangle = _displayHero._down.bounds;
-			/*
-			//JUMP CODE
-			if (_onKeyboardJump) {
-				_ySpeed = -10;
-			}
 			
-			_ySpeed++;
-			
-			
-			var fCheckHit_jump:Rectangle = _displayHero.bounds;
-			
-			
-			if (_ySpeed > 0) {
-				for (i = 0; i < _ySpeed; i++) {
-					var fCheckHit_jump01:Boolean = false;
-					
-					for (var j01:int = 0; j01 < fNum;j01++ ) {
-						var fDoj001:DisplayObject = _displayFront.getChildAt(j01);
-						if (fDoj001) {
-							var bounds001:Rectangle = fDoj001.bounds;
-							bounds02.x = fDoj01.x;
-							bounds02.y = fDoj01.y;
-							if (fCheckHit_jump.intersects(bounds001)){
-								fCheckHit_jump01 = true;
-								//trace("fCheckHit01");
-								break;
-							}
-						}
-					}
-					
-					if (!fCheckHit_jump01){
-					//if (! terrain_bmpd.hitTest(new Point(terrain_bmp.x, terrain_bmp.y), 0x01, new Rectangle(character.x - 5, character.y + 10, 10, 1))) {
-						_displayHero.y++;
-					} else {
-						_ySpeed = 0;
-					}
-				}
-			} else {
-				for (i = 0; i < Math.abs(_ySpeed); i++) {
-					//if (! terrain_bmpd.hitTest(new Point(terrain_bmp.x, terrain_bmp.y), 0x01, new Rectangle(character.x - 5, character.y - 10, 10, 1))) {
-						_displayHero.y--;
-					} else {
-						_ySpeed = 0;
-					}
-				}
-			}*/
+			var boundsDown:Rectangle = _displayHero._down.getBounds(GlobalData.GAME_WORLD.stage);
 			
 			var blnIsLand:Boolean = false;
-			boundsDown.x = _displayHero.x;
-			boundsDown.y = _displayHero.y;
+			
+			//boundsDown.x = _displayHero.x;
+			//boundsDown.y = _displayHero.y;
+			
 			blnIsLand = checkPlayerHit(boundsDown, _displayFront);
 			
 			//JUMP CODE
 			if (_onKeyboardJump && blnIsLand) {
+				//trace("jump");
 				_ySpeed = -15;
 			}
 			_ySpeed++;
 			
-			var boundsJump:Rectangle = _displayHero.bounds;
+			//var boundsJump:Rectangle = _displayHero.bounds;
+			var boundsJump:Rectangle = _displayHero._hero.getBounds(GlobalData.GAME_WORLD.stage);
 			
 			//TODO 需要向四周扩大 boundsJump
 
 			if (_ySpeed > 0) {
 				for (i = 0; i < _ySpeed; i++) {
 					var blnBoundsJump01:Boolean = false;
-					
-					boundsJump.x = _displayHero.x;
-					boundsJump.y = _displayHero.y;
+
+					boundsJump = _displayHero._hero.getBounds(GlobalData.GAME_WORLD.stage);
+					//boundsJump.x = _displayHero.x;
+					//boundsJump.y = _displayHero.y;
 					
 					blnBoundsJump01 = checkPlayerHit(boundsJump, _displayFront);
 					if (!blnBoundsJump01){
 						_displayHero.y++;
+						//trace("down 01");
 					} else {
 						_ySpeed = 0;
 					}
@@ -221,6 +174,8 @@ package com.xskip.game.rainbow.algorithm
 			} else {
 				for (i = 0; i < Math.abs(_ySpeed); i++) {
 					var blnBoundsJump02:Boolean = false;
+					
+					boundsJump = _displayHero._hero.getBounds(GlobalData.GAME_WORLD.stage);
 					//boundsJump.x = _displayHero.x;
 					//boundsJump.y = _displayHero.y;
 					blnBoundsJump02 = checkPlayerHit(boundsJump, _displayFront);
@@ -236,13 +191,15 @@ package com.xskip.game.rainbow.algorithm
 			//LEFT CODE
 			if (_onKeyboardLeft) {
 				for (i = 0; i < 5; i++ ) {
-					var boundsLeft:Rectangle = _displayHero._left.bounds;
-					boundsLeft.x = _displayHero.x + _displayHero._left.x;
-					boundsLeft.y = _displayHero.y + _displayHero._left.y;
+					var boundsLeft:Rectangle = _displayHero._left.getBounds(GlobalData.GAME_WORLD.stage);
+					//boundsLeft.x = _displayHero.x + _displayHero._left.x;
+					//boundsLeft.y = _displayHero.y + _displayHero._left.y;
 					var fCheckLeftHit:Boolean = false;
 					fCheckLeftHit = checkPlayerHit(boundsLeft, _displayFront);
 					if (!fCheckLeftHit) {
 						_displayHero.x--;
+					}else {
+						break;
 					}
 				}
 			}
@@ -250,26 +207,35 @@ package com.xskip.game.rainbow.algorithm
 			//RIGHT CODE
 			if (_onKeyboardRight) {
 				for (i = 0; i < 5; i++ ) {
-					
-					var boundsRight:Rectangle = _displayHero._right.bounds;
-					boundsRight.x = _displayHero.x + _displayHero._right.x;
-					boundsRight.y = _displayHero.y + _displayHero._right.y;
+					var boundsRight:Rectangle = _displayHero._right.getBounds(GlobalData.GAME_WORLD.stage);
+					//boundsRight.x = _displayHero.x + _displayHero._right.x;
+					//boundsRight.y = _displayHero.y + _displayHero._right.y;
 					var fCheckRightHit:Boolean = false;
 					fCheckRightHit = checkPlayerHit(boundsRight, _displayFront);
 					if (!fCheckRightHit) {
 						_displayHero.x++;
+					}else {
+						break;
 					}
 				}
 			}
 			
 			//gravity CODE
 			for (i = 0; i < 3; i++) {
-				boundsDown.x = _displayHero.x;
-				boundsDown.y = _displayHero.y;
+				boundsDown = _displayHero._down.getBounds(GlobalData.GAME_WORLD.stage);
+				
+				//boundsDown.x = _displayHero.x;
+				//boundsDown.y = _displayHero.y;
+				
 				var fCheckGravityHit:Boolean = false;
 				fCheckGravityHit = checkPlayerHit(boundsDown, _displayFront);
 				if (!fCheckGravityHit){
 					_displayHero.y++;
+					//trace("down 02");
+				}else {
+					//重力接触后回移一格
+					_displayHero.y--;
+					break;
 				}
 			}
 			
@@ -291,9 +257,9 @@ package com.xskip.game.rainbow.algorithm
 			for (var j:int = 0; j < fNumChildren; j++) {
 				var fDo:DisplayObject = fFloorDisplay.getChildAt(j);
 				if (fDo) {
-					var floorRect:Rectangle = fDo.bounds;
-					floorRect.x = fFloorDisplay.x + fDo.x;
-					floorRect.y = fFloorDisplay.y + fDo.y;
+					var floorRect:Rectangle = fDo.getBounds(GlobalData.GAME_WORLD.stage);
+					//floorRect.x = fFloorDisplay.x + fDo.x;
+					//floorRect.y = fFloorDisplay.y + fDo.y;
 					
 					if (fTargetRect.intersects(floorRect)) {
 						fBtnReturn = true;

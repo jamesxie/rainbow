@@ -33,24 +33,28 @@ package com.xskip.game.rainbow.player
 		}
 		
 		private function init():void {
-			_down = new Quad(_hero.width, 1, 0xFF0000);
+			/*_down = new Quad(_hero.width, 1, 0xFF0000);
 			_down.x = -(_hero.width >> 1);
-			_down.y = -1;
+			_down.y = 0;
+			this.addChild(_down);*/
+			_down = new Quad(_hero.width-2, 1, 0xFF0000);
+			_down.x = -(_hero.width >> 1)+1;
+			_down.y = 0;
 			this.addChild(_down);
 			
 			_left = new Quad(1, _hero.height - 3, 0x00FF00);
-			_left.x = -(_hero.width >> 1);
+			_left.x = -(_hero.width >> 1) - 1;
 			_left.y = -_hero.height-1;
 			this.addChild(_left);
 			
 			_right = new Quad(1, _hero.height - 3, 0xFFFF00);
-			_right.x = _hero.width >> 1;
+			_right.x = (_hero.width >> 1) + 1;
 			_right.y = -_hero.height-1;
 			this.addChild(_right);
 			
-			//_down.visible = false;
-			//_left.visible = false;
-			//_right.visible = false;
+			_down.visible = false;
+			_left.visible = false;
+			_right.visible = false;
 		}
 		
 		//覆盖dispose

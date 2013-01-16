@@ -82,7 +82,7 @@
 			quadQ2.x = 424;
 			quadQ2.y = 280;
 			
-			var quadQ3:Quad = new Quad(16, 50);
+			var quadQ3:Quad = new Quad(60, 50);
 			quadQ3.setVertexColor(0, 0x000000);
 			quadQ3.setVertexColor(1, 0xAA0000);
 			quadQ3.setVertexColor(2, 0x00FF00);
@@ -91,12 +91,12 @@
 			//quadQ3.y = 280;
 			quadQ3.y = 320;
 			
-			var quadQ4:Quad = new Quad(16, 50);
+			var quadQ4:Quad = new Quad(60, 50);
 			quadQ4.setVertexColor(0, 0x000000);
 			quadQ4.setVertexColor(1, 0xAA0000);
 			quadQ4.setVertexColor(2, 0x00FF00);
 			quadQ4.setVertexColor(3, 0x0000FF);
-			quadQ4.x = 400;
+			quadQ4.x = 300;
 			//quadQ3.y = 280;
 			quadQ4.y = 320;
 			

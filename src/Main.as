@@ -41,7 +41,9 @@ package
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
-			stage.addEventListener(Event.DEACTIVATE, deactivate);
+			
+			//关闭程序
+			//stage.addEventListener(Event.DEACTIVATE, deactivate);
 			
 			StageInfo.STAGE = stage;
 			
