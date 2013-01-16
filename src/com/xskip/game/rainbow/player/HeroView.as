@@ -48,9 +48,9 @@ package com.xskip.game.rainbow.player
 			_right.y = -_hero.height-1;
 			this.addChild(_right);
 			
-			_down.visible = false;
-			_left.visible = false;
-			_right.visible = false;
+			//_down.visible = false;
+			//_left.visible = false;
+			//_right.visible = false;
 		}
 		
 		//覆盖dispose

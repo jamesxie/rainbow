@@ -47,8 +47,8 @@ package com.xskip.game.rainbow.algorithm
 		private var _onKeyboardRight:Boolean;
 		private var _onKeyboardJump:Boolean;
 		
-		public var _xSpeed:Number=0;
-		public var _ySpeed:Number=0;
+		private var _xSpeed:Number;
+		private var _ySpeed:Number;
 		
 		//private var _point:Point;
 		
@@ -75,6 +75,9 @@ package com.xskip.game.rainbow.algorithm
 			_onKeyboardLeft = false;
 			_onKeyboardRight = false;
 			_onKeyboardJump = false;
+			
+			_xSpeed = 0;
+			_ySpeed = 0;
 			
 			GlobalData.GAME_WORLD.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDownHandler);
 			GlobalData.GAME_WORLD.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUpHandler);
@@ -122,18 +125,10 @@ package com.xskip.game.rainbow.algorithm
 		private function  onTouchedSprite(e:TouchEvent):void {
 			// get the mouse location related to the stage 
 			var touch:Touch = e.getTouch(GlobalData.GAME_WORLD.stage);
-			//var pos:Point = touch.getLocation(GlobalData.GAME_WORLD.stage);
-			
-			//Began Moved End
-			//trace ( touch.phase );
-			
-			// store the mouse coordinates
-			//_mouseX = pos.x;
-			//_mouseY = pos.y;
-			
-			_mouseX = touch.globalX;
-			_mouseY = touch.globalY;
-			
+			if (touch){
+				_mouseX = touch.globalX;
+				_mouseY = touch.globalY;
+			}
 			//trace("_mouseX " + _mouseX + " _mouseY " + _mouseY);
 		}
 		
@@ -146,7 +141,7 @@ package com.xskip.game.rainbow.algorithm
 			_displayMiddle.x ++;
 			
 			var fNum:int = _displayFront.numChildren;
-			
+			var boundsDown:Rectangle = _displayHero._down.bounds;
 			/*
 			//JUMP CODE
 			if (_onKeyboardJump) {
@@ -194,19 +189,28 @@ package com.xskip.game.rainbow.algorithm
 				}
 			}*/
 			
+			var blnIsLand:Boolean = false;
+			boundsDown.x = _displayHero.x;
+			boundsDown.y = _displayHero.y;
+			blnIsLand = checkPlayerHit(boundsDown, _displayFront);
+			
 			//JUMP CODE
-			if (_onKeyboardJump) {
-				_ySpeed = -10;
+			if (_onKeyboardJump && blnIsLand) {
+				_ySpeed = -15;
 			}
 			_ySpeed++;
 			
 			var boundsJump:Rectangle = _displayHero.bounds;
+			
 			//TODO 需要向四周扩大 boundsJump
-			
-			
+
 			if (_ySpeed > 0) {
 				for (i = 0; i < _ySpeed; i++) {
 					var blnBoundsJump01:Boolean = false;
+					
+					boundsJump.x = _displayHero.x;
+					boundsJump.y = _displayHero.y;
+					
 					blnBoundsJump01 = checkPlayerHit(boundsJump, _displayFront);
 					if (!blnBoundsJump01){
 						_displayHero.y++;
@@ -217,6 +221,8 @@ package com.xskip.game.rainbow.algorithm
 			} else {
 				for (i = 0; i < Math.abs(_ySpeed); i++) {
 					var blnBoundsJump02:Boolean = false;
+					//boundsJump.x = _displayHero.x;
+					//boundsJump.y = _displayHero.y;
 					blnBoundsJump02 = checkPlayerHit(boundsJump, _displayFront);
 					if (!blnBoundsJump02){
 						_displayHero.y--;
@@ -258,7 +264,6 @@ package com.xskip.game.rainbow.algorithm
 			
 			//gravity CODE
 			for (i = 0; i < 3; i++) {
-				var boundsDown:Rectangle = _displayHero._down.bounds;
 				boundsDown.x = _displayHero.x;
 				boundsDown.y = _displayHero.y;
 				var fCheckGravityHit:Boolean = false;
@@ -287,10 +292,10 @@ package com.xskip.game.rainbow.algorithm
 				var fDo:DisplayObject = fFloorDisplay.getChildAt(j);
 				if (fDo) {
 					var floorRect:Rectangle = fDo.bounds;
-					floorRect.x = fDo.x;
-					floorRect.y = fDo.y;
+					floorRect.x = fFloorDisplay.x + fDo.x;
+					floorRect.y = fFloorDisplay.y + fDo.y;
 					
-					if (fTargetRect.intersects(floorRect)){
+					if (fTargetRect.intersects(floorRect)) {
 						fBtnReturn = true;
 						break;
 					}

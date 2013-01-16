@@ -1,4 +1,4 @@
-package com.xskip.game.rainbow.scene 
+﻿package com.xskip.game.rainbow.scene 
 {
 	import com.xskip.game.rainbow.algorithm.ParallaxBackground;
 	import com.xskip.game.rainbow.database.GlobalData;
@@ -91,9 +91,19 @@ package com.xskip.game.rainbow.scene
 			//quadQ3.y = 280;
 			quadQ3.y = 320;
 			
+			var quadQ4:Quad = new Quad(16, 50);
+			quadQ4.setVertexColor(0, 0x000000);
+			quadQ4.setVertexColor(1, 0xAA0000);
+			quadQ4.setVertexColor(2, 0x00FF00);
+			quadQ4.setVertexColor(3, 0x0000FF);
+			quadQ4.x = 400;
+			//quadQ3.y = 280;
+			quadQ4.y = 320;
+			
 			q3.addChild(quadQ1);
-			//q3.addChild(quadQ2);
+			q3.addChild(quadQ2);
 			q3.addChild(quadQ3);
+			q3.addChild(quadQ4);
 			
 			GlobalData.GAME_WORLD.stage.addChild(q1);
 			GlobalData.GAME_WORLD.stage.addChild(q2);
