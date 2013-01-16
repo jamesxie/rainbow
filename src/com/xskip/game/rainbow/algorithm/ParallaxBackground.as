@@ -6,6 +6,7 @@ package com.xskip.game.rainbow.algorithm
 	import com.yxg.utils.PixelCollisionDetectionStarling;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import starling.display.Button;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.Quad;
@@ -14,6 +15,8 @@ package com.xskip.game.rainbow.algorithm
 	import starling.events.KeyboardEvent;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
+	import starling.extensions.advancedjoystick.JoyStick;
+	import starling.textures.Texture;
 	import starling.utils.deg2rad;
 	/**
 	 * 视差背景
@@ -22,6 +25,9 @@ package com.xskip.game.rainbow.algorithm
 	 */
 	public class ParallaxBackground 
 	{
+		[Embed( source="jump_button.png" )]
+		private const class_jump:Class;
+		
 		private var _displayBack:Quad;
 		private var _displayMiddle:Quad;
 		private var _displayFront:Sprite;
@@ -52,6 +58,11 @@ package com.xskip.game.rainbow.algorithm
 		
 		//private var _point:Point;
 		
+		private var _joystick:JoyStick;
+		private var _btnJump:Button;
+		
+		
+		
 		public function ParallaxBackground(parmBack:Quad, parmMiddle:Quad, parmFront:Sprite, parmHero:HeroView) 
 		{
 			_displayBack = parmBack;
@@ -79,6 +90,8 @@ package com.xskip.game.rainbow.algorithm
 			_xSpeed = 0;
 			_ySpeed = 0;
 			
+			addJoyPad();
+			
 			GlobalData.GAME_WORLD.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDownHandler);
 			GlobalData.GAME_WORLD.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUpHandler);
 			
@@ -87,6 +100,23 @@ package com.xskip.game.rainbow.algorithm
 			//GlobalData.GAME_WORLD.stage.advanceTime
 			GlobalData.GAME_WORLD.stage.addEventListener(Event.ENTER_FRAME, onEnterFrameHandler);
 			
+		}
+		
+		private function addJoyPad():void {
+			_joystick = new JoyStick();
+			//_joystick.setPosition( _joystick.minOffsetX, 600 - _joystick.minOffsetY );
+			
+			_joystick.x = _joystick.minOffsetX;
+			_joystick.y = -_joystick.minOffsetY + GlobalData.GAME_WORLD.stage.stageHeight;
+			
+			GlobalData.GAME_WORLD.stage.addChild( _joystick );
+			
+			_btnJump = new Button(Texture.fromBitmap(new class_jump()));
+			
+			_btnJump.x = GlobalData.GAME_WORLD.stage.stageWidth - _btnJump.width - 50;
+			_btnJump.y = GlobalData.GAME_WORLD.stage.stageHeight - _btnJump.height - 50;
+			
+			GlobalData.GAME_WORLD.stage.addChild( _btnJump );
 		}
 		
 		private function onKeyDownHandler(e:KeyboardEvent):void {
@@ -124,7 +154,31 @@ package com.xskip.game.rainbow.algorithm
 			//trace("_mouseX " + _mouseX + " _mouseY " + _mouseY);
 		}
 		
+		private function checkControl():void {
+			if(_joystick.touched)
+			{
+				if (_joystick.velocityX < 0){
+					_onKeyboardLeft = true;
+					_onKeyboardRight = false;
+				}
+				if (_joystick.velocityX > 0) {
+					_onKeyboardLeft = false;
+					_onKeyboardRight = true;
+				}
+				if (_joystick.velocityX==0) {
+					_onKeyboardLeft = false;
+					_onKeyboardRight = false;
+				}
+			}else{
+				_onKeyboardLeft = false;
+				_onKeyboardRight = false;
+			}
+		}
+		
 		private function onEnterFrameHandler(e:Event):void {
+			
+			checkControl();
+			
 			//trace("run it");
 			if (_displayMiddle.x > GlobalData.GAME_WORLD.stage.stageWidth) {
 				_displayMiddle.x = -_displayMiddle.width;
