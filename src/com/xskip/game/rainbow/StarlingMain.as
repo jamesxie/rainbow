@@ -20,7 +20,7 @@ package com.xskip.game.rainbow
 			
 			GlobalData.GAME_WORLD = _starling;
 			
-			trace(Starling.VERSION);
+			//trace(Starling.VERSION);
 			
 			_starling.start();
 		}

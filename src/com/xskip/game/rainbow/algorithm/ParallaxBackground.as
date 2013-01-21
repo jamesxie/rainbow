@@ -15,6 +15,7 @@ package com.xskip.game.rainbow.algorithm
 	import starling.events.KeyboardEvent;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	import starling.extensions.advancedjoystick.JoyStick;
 	import starling.textures.Texture;
 	import starling.utils.deg2rad;
@@ -61,7 +62,7 @@ package com.xskip.game.rainbow.algorithm
 		private var _joystick:JoyStick;
 		private var _btnJump:Button;
 		
-		
+		private var _joyTouch:Boolean;
 		
 		public function ParallaxBackground(parmBack:Quad, parmMiddle:Quad, parmFront:Sprite, parmHero:HeroView) 
 		{
@@ -86,6 +87,8 @@ package com.xskip.game.rainbow.algorithm
 			_onKeyboardLeft = false;
 			_onKeyboardRight = false;
 			_onKeyboardJump = false;
+			
+			_joyTouch = false;
 			
 			_xSpeed = 0;
 			_ySpeed = 0;
@@ -117,6 +120,25 @@ package com.xskip.game.rainbow.algorithm
 			_btnJump.y = GlobalData.GAME_WORLD.stage.stageHeight - _btnJump.height - 50;
 			
 			GlobalData.GAME_WORLD.stage.addChild( _btnJump );
+			
+			_btnJump.addEventListener(TouchEvent.TOUCH, onJumpHandler);
+		}
+		
+		private function onJumpHandler(e:TouchEvent):void {
+			var touch:Touch = e.getTouch(_btnJump);
+			
+			//trace("touch = " + touch);
+			if (!touch) {
+				return;
+			}
+			if (touch.phase == TouchPhase.BEGAN) {
+				_onKeyboardJump = true;
+			}
+			if (touch.phase == TouchPhase.ENDED) {
+				if (_onKeyboardJump) {
+					_onKeyboardJump = false;
+				}
+			}
 		}
 		
 		private function onKeyDownHandler(e:KeyboardEvent):void {
@@ -157,6 +179,7 @@ package com.xskip.game.rainbow.algorithm
 		private function checkControl():void {
 			if(_joystick.touched)
 			{
+				_joyTouch = true;
 				if (_joystick.velocityX < 0){
 					_onKeyboardLeft = true;
 					_onKeyboardRight = false;
@@ -169,9 +192,12 @@ package com.xskip.game.rainbow.algorithm
 					_onKeyboardLeft = false;
 					_onKeyboardRight = false;
 				}
-			}else{
-				_onKeyboardLeft = false;
-				_onKeyboardRight = false;
+			}else {
+				if (_joyTouch){
+					_onKeyboardLeft = false;
+					_onKeyboardRight = false;
+					_joyTouch = false;
+				}
 			}
 		}
 		

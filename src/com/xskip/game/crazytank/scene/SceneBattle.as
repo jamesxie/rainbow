@@ -284,7 +284,7 @@ package com.xskip.game.crazytank.scene
 				if (e.keyCode == 32) {
 					//TEST TEMP test temp
 					
-					trace("射击角度 = " + _player001.finalAngle());
+					//trace("射击角度 = " + _player001.finalAngle());
 					
 					_player001.gunPower = int(_power.width / 4);
 					
@@ -369,7 +369,7 @@ package com.xskip.game.crazytank.scene
 			//边缘灼烧
 			//burnBorder();
 			
-			trace("go one");
+			//trace("go one");
 			
 			StageInfo.STAGE.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
 			

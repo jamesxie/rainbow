@@ -24,7 +24,7 @@ package com.xskip.game.crazytank.database
 		
 		public function addEnemy(pDataPlayer:DataPlayer):void {
 			var fID:int = ID_ENEMY++;
-			trace("fID = "+fID);
+			//trace("fID = "+fID);
 			pDataPlayer.id = fID;
 			_hmEnemy.put(fID, pDataPlayer);
 		}

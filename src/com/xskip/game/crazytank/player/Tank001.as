@@ -238,7 +238,7 @@ package com.xskip.game.crazytank.player
 					}
 					
 				}else {
-					trace("super.rotation -- " + super.rotation);
+					//trace("super.rotation -- " + super.rotation);
 				}
 			}
 			if (value > super.x) {
@@ -256,7 +256,7 @@ package com.xskip.game.crazytank.player
 					}
 					
 				}else {
-					trace("super.rotation ++ " + super.rotation);
+					//trace("super.rotation ++ " + super.rotation);
 				}
 			}
 		}

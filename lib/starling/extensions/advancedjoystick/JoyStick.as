@@ -151,7 +151,10 @@
 			if (!evt.getTouches(this)) {
 				return;
 			}else {
-				if (!(evt.getTouches(this)[0])) {
+				//trace(">> " + typeof(evt.getTouches(this)) + " >> ");
+				//trace(evt.getTouches(this));
+				if (evt.getTouches(this).toString().length == 0) {
+					//trace("TouchEvent.length = 0");
 					return;
 				}
 			}
@@ -160,7 +163,7 @@
 				return;
 			}
 			_touched = true;
-			switch( touch.phase )
+			switch( touch.phase)
 			{
 				case TouchPhase.BEGAN:
 					pivotPoint.x = touch.globalX - pivotX + stick.x;

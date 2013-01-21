@@ -41,7 +41,7 @@
 			armature = factory.buildArmature("Dragon");
 			armatureClip = armature.display as Sprite;
 			
-			trace("w " + armatureClip.width + " h " + armatureClip.height);
+			//trace("w " + armatureClip.width + " h " + armatureClip.height);
 			
 			armatureClip.x = 400;
 			armatureClip.y = 550;

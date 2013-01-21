@@ -36,7 +36,7 @@
 		}
 		
 		private function init():void {
-			Logger.INFO(this, "SceneWelcome init");
+			//Logger.INFO(this, "SceneWelcome init");
 			
 			createBtnStart();
 		}
@@ -51,7 +51,6 @@
 		
 		public function play():void {
 			show(true);
-			trace("SceneWelcome play");
 			
 			q1 = new Quad(512,512);
 

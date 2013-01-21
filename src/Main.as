@@ -63,8 +63,8 @@ package
 		private function init():void
 		{
 			//stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
-			trace("Before Event stage.fullScreenWidth " + stage.fullScreenWidth + " stage.fullScreenHeight " + stage.fullScreenHeight);
-			trace("Before Event stage.stageWidth " + stage.stageWidth + " stage.stageHeight " + stage.stageHeight);
+			//trace("Before Event stage.fullScreenWidth " + stage.fullScreenWidth + " stage.fullScreenHeight " + stage.fullScreenHeight);
+			//trace("Before Event stage.stageWidth " + stage.stageWidth + " stage.stageHeight " + stage.stageHeight);
 			stage.addEventListener(Event.RESIZE, stageResize);
 			
 			try {
@@ -72,10 +72,10 @@ package
 				stage.setOrientation(StageOrientation.ROTATED_RIGHT);
 			}catch (e:Error) {
 				//浏览器版本
-				trace("浏览器版本 无屏幕旋转事件");
+				//trace("浏览器版本 无屏幕旋转事件");
 			}
 			
-			trace("Hello World");
+			//trace("Hello World");
 			var fSP:Sprite = new Sprite();
 			fSP.graphics.beginFill(0xFF0000);
 			fSP.graphics.drawRect(0, 0, 10, 1);
@@ -102,9 +102,7 @@ package
 		{
 			removeEventListener(Event.RESIZE, stageResize);
 			
-			trace("RESIZE EVENT --");
-			//trace("After resize stage.fullScreenWidth " + stage.fullScreenWidth + " stage.fullScreenHeight " + stage.fullScreenHeight);
-			//trace("After resize stage.stageWidth " + stage.stageWidth + " stage.stageHeight " + stage.stageHeight);
+			//trace("RESIZE EVENT --");
 			
 			StageInfo.WIDTH = stage.stageWidth;
 			StageInfo.HEIGHT = stage.stageHeight;
@@ -113,7 +111,7 @@ package
 		}
 		
 		private function startStarling():void {
-			trace("startStarling");
+			//trace("startStarling");
 			
 			var fStarlingMain:StarlingMain = new StarlingMain();
 		}
@@ -132,7 +130,7 @@ package
 				//nativeApplication.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 			}catch (e:Error) {
 				//浏览器版本
-				trace("浏览器版本 关闭事件");
+				//trace("浏览器版本 关闭事件");
 			}
 		}
 		

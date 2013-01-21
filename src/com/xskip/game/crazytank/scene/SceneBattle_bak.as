@@ -114,7 +114,7 @@
 				}
 			}
 			
-			trace("_allowFix = "+_allowFix+" _onReadying = " + _onReadying + " _onEnterGunLeft = " + _onEnterGunLeft + " _onEnterGunRight " + _onEnterGunRight + "  _player001.rotation " + _player001.rotation);
+			//trace("_allowFix = "+_allowFix+" _onReadying = " + _onReadying + " _onEnterGunLeft = " + _onEnterGunLeft + " _onEnterGunRight " + _onEnterGunRight + "  _player001.rotation " + _player001.rotation);
 			
 			if (_onEnterGunLeft) {
 				//trace("_player001.rotation = "+_player001.rotation);
@@ -237,7 +237,7 @@
 		}
 		
 		public function shotCallBack(str:String = ""):void {
-			trace("shotEnd = " + str);
+			//trace("shotEnd = " + str);
 		}
 		
 		private function onKeyBoardDownHandler(e:KeyboardEvent):void {
@@ -307,7 +307,7 @@
 			//边缘灼烧
 			//burnBorder();
 			
-			trace("go one");
+			//trace("go one");
 			
 			StageInfo.STAGE.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
 			

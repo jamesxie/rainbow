@@ -14,7 +14,7 @@ package com.xskip.game.rainbow
 		
 		public function MainRainbow() 
 		{
-			trace("MainRainbow!");
+			//trace("MainRainbow!");
 			init();
 		}
 		
