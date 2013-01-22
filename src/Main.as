@@ -43,7 +43,7 @@ package
 			stage.align = StageAlign.TOP_LEFT;
 			
 			//关闭程序
-			//stage.addEventListener(Event.DEACTIVATE, deactivate);
+			stage.addEventListener(Event.DEACTIVATE, deactivate);
 			
 			StageInfo.STAGE = stage;
 			
@@ -120,8 +120,7 @@ package
 		{
 			// auto-close
 			//NativeApplication.nativeApplication.exit();
-			try
-			{
+			try {
 				//AIR版本
 				var myClass:Class = getDefinitionByName("flash.desktop.NativeApplication") as Class;
 				myClass.nativeApplication.exit();

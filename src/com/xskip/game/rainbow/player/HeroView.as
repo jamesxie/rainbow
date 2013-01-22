@@ -17,6 +17,9 @@ package com.xskip.game.rainbow.player
 		public var _down:Quad;
 		public var _left:Quad;
 		public var _right:Quad;
+		
+		public var _core:Quad;
+		
 		//public var _bitmapData:BitmapData;
 		
 		public function HeroView(skin:Texture, pBitmap:Bitmap) 
@@ -52,9 +55,15 @@ package com.xskip.game.rainbow.player
 			_right.y = -_hero.height-1;
 			this.addChild(_right);
 			
+			_core = new Quad(4, 4, 0xFF00FF);
+			_core.x = -2;
+			_core.y = -2;
+			this.addChild(_core);
+			
 			_down.visible = false;
 			_left.visible = false;
 			_right.visible = false;
+			_core.visible = false;
 		}
 		
 		//覆盖dispose
@@ -70,6 +79,7 @@ package com.xskip.game.rainbow.player
 			 _down.dispose();
 			 _left.dispose();
 			 _right.dispose();
+			 _core.dispose();
 			 
 			 super.dispose();
 		}

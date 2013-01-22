@@ -33,6 +33,9 @@ package com.xskip.game.rainbow.algorithm
 		private var _displayMiddle:Quad;
 		private var _displayFront:Sprite;
 		
+		private var _displayLadder:Sprite;
+
+		
 		private var _displayHero:HeroView;
 		
 		private var r:Number = 0; 
@@ -53,6 +56,8 @@ package com.xskip.game.rainbow.algorithm
 		private var _onKeyboardLeft:Boolean;
 		private var _onKeyboardRight:Boolean;
 		private var _onKeyboardJump:Boolean;
+		private var _onKeyboardUp:Boolean;
+		private var _onKeyboardDown:Boolean;
 		
 		private var _xSpeed:Number;
 		private var _ySpeed:Number;
@@ -64,13 +69,15 @@ package com.xskip.game.rainbow.algorithm
 		
 		private var _joyTouch:Boolean;
 		
-		public function ParallaxBackground(parmBack:Quad, parmMiddle:Quad, parmFront:Sprite, parmHero:HeroView) 
+		public function ParallaxBackground(parmBack:Quad, parmMiddle:Quad, parmFront:Sprite, parmHero:HeroView,parmLadder:Sprite) 
 		{
 			_displayBack = parmBack;
 			_displayMiddle = parmMiddle;
 			_displayFront = parmFront;
 			
 			_displayHero = parmHero;
+			
+			_displayLadder = parmLadder;
 			
 			init();
 		}
@@ -87,6 +94,8 @@ package com.xskip.game.rainbow.algorithm
 			_onKeyboardLeft = false;
 			_onKeyboardRight = false;
 			_onKeyboardJump = false;
+			_onKeyboardUp = false;
+			_onKeyboardDown = false;
 			
 			_joyTouch = false;
 			
@@ -148,8 +157,14 @@ package com.xskip.game.rainbow.algorithm
 			if (e.keyCode == 37) {
 				_onKeyboardLeft = true;
 			}
+			if (e.keyCode == 38) {
+				_onKeyboardUp = true;
+			}
 			if (e.keyCode == 39) {
 				_onKeyboardRight= true;
+			}
+			if (e.keyCode == 40) {
+				_onKeyboardDown = true;
 			}
 		}
 		
@@ -160,8 +175,14 @@ package com.xskip.game.rainbow.algorithm
 			if (e.keyCode == 37) {
 				_onKeyboardLeft = false;
 			}
+			if (e.keyCode == 38) {
+				_onKeyboardUp = false;
+			}
 			if (e.keyCode == 39) {
 				_onKeyboardRight = false;
+			}
+			if (e.keyCode == 40) {
+				_onKeyboardDown = false;
 			}
 			
 		}
@@ -180,7 +201,7 @@ package com.xskip.game.rainbow.algorithm
 			if(_joystick.touched)
 			{
 				_joyTouch = true;
-				if (_joystick.velocityX < 0){
+				if (_joystick.velocityX < 0) {
 					_onKeyboardLeft = true;
 					_onKeyboardRight = false;
 				}
@@ -188,14 +209,26 @@ package com.xskip.game.rainbow.algorithm
 					_onKeyboardLeft = false;
 					_onKeyboardRight = true;
 				}
-				if (_joystick.velocityX==0) {
+				if (_joystick.velocityY < 0) {
+					_onKeyboardUp = true;
+					_onKeyboardDown = false;
+				}
+				if (_joystick.velocityY > 0) {
+					_onKeyboardUp = false;
+					_onKeyboardDown = true;
+				}
+				if (_joystick.velocityX == 0) {
 					_onKeyboardLeft = false;
 					_onKeyboardRight = false;
+					_onKeyboardUp = false;
+					_onKeyboardDown = false;
 				}
 			}else {
 				if (_joyTouch){
 					_onKeyboardLeft = false;
 					_onKeyboardRight = false;
+					_onKeyboardUp = false;
+					_onKeyboardDown = false;
 					_joyTouch = false;
 				}
 			}
@@ -212,18 +245,49 @@ package com.xskip.game.rainbow.algorithm
 			
 			_displayMiddle.x ++;
 			
-			var fNum:int = _displayFront.numChildren;
+			//var fNum:int = _displayFront.numChildren;
 			
 			var boundsDown:Rectangle = _displayHero._down.getBounds(GlobalData.GAME_WORLD.stage);
 			
-			var blnIsLand:Boolean = false;
+			
+			
+			
 			
 			//boundsDown.x = _displayHero.x;
 			//boundsDown.y = _displayHero.y;
 			
-			blnIsLand = checkPlayerHit(boundsDown, _displayFront);
+			//UP DOWN CODE
+			var blnAllowUpDown:Boolean = false;
+			var boundsCore:Rectangle = _displayHero._core.getBounds(GlobalData.GAME_WORLD.stage);
+			
+			blnAllowUpDown = checkPlayerHit(boundsCore, _displayLadder);
+			
+			if (blnAllowUpDown && ( _onKeyboardUp || _onKeyboardDown)) {
+				_onKeyboardLeft = false;
+				_onKeyboardRight = false;
+				
+				for (i = 0; i < 5; i++ ) {
+					boundsCore = _displayHero._core.getBounds(GlobalData.GAME_WORLD.stage);
+					var fCheckDownHit:Boolean = false;
+					fCheckDownHit = checkPlayerHit(boundsCore, _displayLadder);
+					if (fCheckDownHit) {
+						if (_onKeyboardUp) {
+							_displayHero.y--;
+						}
+						if (_onKeyboardDown) {
+							_displayHero.y++;
+						}
+					}else {
+						break;
+					}
+				}
+			}
+			
+			
 			
 			//JUMP CODE
+			var blnIsLand:Boolean = false;
+			blnIsLand = checkPlayerHit(boundsDown, _displayFront);
 			if (_onKeyboardJump && blnIsLand) {
 				//trace("jump");
 				_ySpeed = -15;
@@ -318,7 +382,6 @@ package com.xskip.game.rainbow.algorithm
 					break;
 				}
 			}
-			
 		}
 		
 		/**
