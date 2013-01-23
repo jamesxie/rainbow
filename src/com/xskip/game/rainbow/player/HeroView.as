@@ -17,8 +17,10 @@ package com.xskip.game.rainbow.player
 		public var _down:Quad;
 		public var _left:Quad;
 		public var _right:Quad;
+		public var _coreUp:Quad;
+		public var _coreDown:Quad;
 		
-		public var _core:Quad;
+		public var _onLadder:Boolean;
 		
 		//public var _bitmapData:BitmapData;
 		
@@ -55,15 +57,23 @@ package com.xskip.game.rainbow.player
 			_right.y = -_hero.height-1;
 			this.addChild(_right);
 			
-			_core = new Quad(4, 4, 0xFF00FF);
-			_core.x = -2;
-			_core.y = -2;
-			this.addChild(_core);
+			_coreUp = new Quad(20, 2, 0xFF00FF);
+			_coreUp.x = -10;
+			_coreUp.y = -2;
+			this.addChild(_coreUp);
+			
+			_coreDown = new Quad(20, 2, 0x00FFFF);
+			_coreDown.x = -10;
+			_coreDown.y = 0;
+			this.addChild(_coreDown);
 			
 			_down.visible = false;
 			_left.visible = false;
 			_right.visible = false;
-			_core.visible = false;
+			_coreUp.visible = false;
+			_coreDown.visible = false;
+			
+			_onLadder = false;
 		}
 		
 		//覆盖dispose
@@ -79,7 +89,8 @@ package com.xskip.game.rainbow.player
 			 _down.dispose();
 			 _left.dispose();
 			 _right.dispose();
-			 _core.dispose();
+			 _coreUp.dispose();
+			 _coreDown.dispose();
 			 
 			 super.dispose();
 		}

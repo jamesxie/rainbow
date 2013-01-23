@@ -198,6 +198,9 @@ package com.xskip.game.rainbow.algorithm
 		}
 		
 		private function checkControl():void {
+			
+			//trace("_joystick.velocityY = " + _joystick.velocityY);
+			
 			if(_joystick.touched)
 			{
 				_joyTouch = true;
@@ -209,11 +212,11 @@ package com.xskip.game.rainbow.algorithm
 					_onKeyboardLeft = false;
 					_onKeyboardRight = true;
 				}
-				if (_joystick.velocityY < 0) {
+				if (_joystick.velocityY < -0.6) {
 					_onKeyboardUp = true;
 					_onKeyboardDown = false;
 				}
-				if (_joystick.velocityY > 0) {
+				if (_joystick.velocityY > 0.6) {
 					_onKeyboardUp = false;
 					_onKeyboardDown = true;
 				}
@@ -258,18 +261,31 @@ package com.xskip.game.rainbow.algorithm
 			
 			//UP DOWN CODE
 			var blnAllowUpDown:Boolean = false;
-			var boundsCore:Rectangle = _displayHero._core.getBounds(GlobalData.GAME_WORLD.stage);
+			var boundsCoreUp:Rectangle = _displayHero._coreUp.getBounds(GlobalData.GAME_WORLD.stage);
+			var boundsCoreDown:Rectangle = _displayHero._coreDown.getBounds(GlobalData.GAME_WORLD.stage);
 			
-			blnAllowUpDown = checkPlayerHit(boundsCore, _displayLadder);
+			if (_onKeyboardUp){
+				blnAllowUpDown = checkPlayerHit(boundsCoreUp, _displayLadder);
+			}else {
+				blnAllowUpDown = checkPlayerHit(boundsCoreDown, _displayLadder);
+			}
 			
 			if (blnAllowUpDown && ( _onKeyboardUp || _onKeyboardDown)) {
 				_onKeyboardLeft = false;
 				_onKeyboardRight = false;
 				
+				_displayHero._onLadder = true;
+				
 				for (i = 0; i < 5; i++ ) {
-					boundsCore = _displayHero._core.getBounds(GlobalData.GAME_WORLD.stage);
 					var fCheckDownHit:Boolean = false;
-					fCheckDownHit = checkPlayerHit(boundsCore, _displayLadder);
+					if (_onKeyboardUp) {
+						boundsCoreUp = _displayHero._coreUp.getBounds(GlobalData.GAME_WORLD.stage);
+						fCheckDownHit = checkPlayerHit(boundsCoreUp, _displayLadder);
+					}else {
+						boundsCoreDown = _displayHero._coreDown.getBounds(GlobalData.GAME_WORLD.stage);
+						fCheckDownHit = checkPlayerHit(boundsCoreDown, _displayLadder);
+					}
+					
 					if (fCheckDownHit) {
 						if (_onKeyboardUp) {
 							_displayHero.y--;
@@ -280,6 +296,10 @@ package com.xskip.game.rainbow.algorithm
 					}else {
 						break;
 					}
+				}
+			}else {
+				if (!blnAllowUpDown && _displayHero._onLadder){
+					_displayHero._onLadder = false;
 				}
 			}
 			
@@ -365,6 +385,9 @@ package com.xskip.game.rainbow.algorithm
 			}
 			
 			//gravity CODE
+			if (_displayHero._onLadder) {
+				return;
+			}
 			for (i = 0; i < 3; i++) {
 				boundsDown = _displayHero._down.getBounds(GlobalData.GAME_WORLD.stage);
 				

@@ -130,7 +130,6 @@
 			//Ladder
 			q4 = new Sprite();
 			
-			
 			var quadQ6:Quad = new Quad(20, 100);
 			quadQ6.setVertexColor(0, 0xFF9900);
 			quadQ6.setVertexColor(1, 0xFF9900);
