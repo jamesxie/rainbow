@@ -6,8 +6,8 @@
     <movie input="" />
     <movie path="bin\Rainbow.swf" />
     <movie fps="30" />
-    <movie width="480" />
-    <movie height="762" />
+    <movie width="800" />
+    <movie height="500" />
     <movie version="3" />
     <movie minorVersion="5" />
     <movie platform="AIR Mobile" />

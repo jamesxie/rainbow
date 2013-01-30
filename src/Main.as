@@ -36,7 +36,7 @@ package
 		
 		private function start(e:Event = null):void {
 			if (hasEventListener(Event.ADDED_TO_STAGE)) {
-				removeEventListener(Event.ADDED_TO_STAGE, init);
+				removeEventListener(Event.ADDED_TO_STAGE, start);
 			}
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
